@@ -5,6 +5,8 @@ import Router from "next/router";
 
 import PageChange from "components/PageChange/PageChange.js";
 
+import { AuthProvider } from '../contexts/AuthContext';
+
 import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/nextjs-argon-dashboard.scss";
@@ -47,14 +49,16 @@ export default function MyApp(props) {
         <title>NextJS Argon Dashboard by Creative Tim</title>
         <script src="https://maps.googleapis.com/maps/api/js?key="></script>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </Hydrate>
-      </QueryClientProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Hydrate>
+        </QueryClientProvider>
+      </AuthProvider>
     </React.Fragment>
   );
 }
