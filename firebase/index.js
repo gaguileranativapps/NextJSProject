@@ -1,5 +1,5 @@
 import Firebase from 'firebase/app';
-import 'Firebase/auth';
+import 'firebase/auth';
 
 const FirebaseCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
