@@ -1,7 +1,7 @@
 import React from 'react';
 import useFirebaseAuth from '../hooks/useFirebaseAuth';
 
-export default AuthContext = React.createContext({
+const AuthContext = React.createContext({
   user: null,
 });
 
@@ -12,3 +12,5 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{ user }}>{ children }</AuthContext.Provider>
   );
 }
+
+export default AuthContext;
