@@ -2,13 +2,20 @@ import React from "react";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
 
+import useAuth from '../hooks/useAuth';
+
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
+import { useRouter } from "next/router";
+
 import routes from "routes.js";
 
 function Auth(props) {
+  const { user } = useAuth();
+  const router = useRouter();
+
   React.useEffect(() => {
     document.body.classList.add("bg-default");
     // Specify how to clean up after this effect:
@@ -16,6 +23,13 @@ function Auth(props) {
       document.body.classList.remove("bg-default");
     };
   }, []);
+
+  React.useEffect(() => {
+    if (user) {
+      router.push('/admin/dashboard');
+    }
+  }, [user]);
+
   return (
     <>
       <div className="main-content">

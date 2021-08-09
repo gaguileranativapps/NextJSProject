@@ -7,9 +7,12 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
+import useAuth from '../hooks/useAuth';
+
 import routes from "routes.js";
 
 function Admin(props) {
+  const { user } = useAuth();
   // used for checking current route
   const router = useRouter();
   let mainContentRef = React.createRef();
@@ -26,6 +29,13 @@ function Admin(props) {
     }
     return "Brand";
   };
+
+  React.useEffect(() => {
+    if (!user) {
+      router.push('/auth/login');
+    }
+  }, [user]);
+
   return (
     <>
       <Sidebar
