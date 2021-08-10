@@ -21,7 +21,7 @@ export default function userFirebaseAuth() {
     setUser(user);
 
     if (user) {
-      const token = await authUser.getIdToken(true);
+      const token = await user.getIdToken(true);
       setCookie(null, 'token', token);
     }
   }
