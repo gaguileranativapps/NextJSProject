@@ -13,10 +13,23 @@ import {
 
 // layout for this page
 import Auth from "layouts/Auth.js";
+import userFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 function Register() {
+  const { 
+    createUserWithEmailAndPassword,
+    updateProfile
+  } = userFirebaseAuth();
+
   const handleSubmit = async (userData) => {
-    console.log(userData);
+    try {
+      await createUserWithEmailAndPassword(userData.email, userData.password);
+      updateProfile({
+        displayName: userData.displayName,
+      });
+    } catch(e) {
+      console.error(e);
+    }
   }
 
   return (
