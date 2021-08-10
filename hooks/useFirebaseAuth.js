@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Firebase from '../firebase';
 
 export default function userFirebaseAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const user = Firebase.auth().currentUser;
+    return user;
+  });
 
-  const authStateChanged = async (authState) => {
-    if (!authState) {
-      setUser(null);
-      return;
-    }
-    setUser(authState);
+  const authStateChanged = async (authUser) => {
+    setUser(authUser);
   }
 
-  const clear = () => {
-    setUser(null);
+  const updateSession = () => {
+    const user = Firebase.auth().currentUser;
+    setUser(user);
   }
 
   const signInWithEmailAndPassword = (email, password) => 
@@ -23,7 +23,12 @@ export default function userFirebaseAuth() {
     Firebase.auth().createUserWithEmailAndPassword(email, password);
   
   const signOut = () => 
-    Firebase.auth().signOut().then(clear);
+    Firebase.auth().signOut().then(updateSession);
+
+  const updateProfile = (profileData) => {
+    const user = Firebase.auth().currentUser;
+    user.updateProfile(profileData).then(updateSession);
+  }
 
   useEffect(() => {
     const unsubscribe = Firebase.auth().onAuthStateChanged(authStateChanged);
@@ -35,5 +40,6 @@ export default function userFirebaseAuth() {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     signOut,
+    updateProfile,
   };
 }
