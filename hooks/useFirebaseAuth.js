@@ -30,6 +30,9 @@ export default function userFirebaseAuth() {
     user.updateProfile(profileData).then(updateSession);
   }
 
+  const setPersistence = (persistenceType) => 
+    Firebase.auth().setPersistence(persistenceType);
+
   useEffect(() => {
     const unsubscribe = Firebase.auth().onAuthStateChanged(authStateChanged);
     return () => unsubscribe();
@@ -41,5 +44,6 @@ export default function userFirebaseAuth() {
     createUserWithEmailAndPassword,
     signOut,
     updateProfile,
+    setPersistence,
   };
 }

@@ -14,13 +14,23 @@ import Auth from "layouts/Auth.js";
 import { SignInUserForm, SignInUserFormSchema } from "../../forms/SignInUserForm";
 import userFirebaseAuth from "../../hooks/useFirebaseAuth";
 
+import Firebase from '../../firebase';
+
 import { Formik } from 'formik';
 
 function Login() {
-  const { signInWithEmailAndPassword } = userFirebaseAuth();
+  const { 
+    signInWithEmailAndPassword,
+    setPersistence,
+  } = userFirebaseAuth();
 
   const handleSubmit = async (userData) => {
     try {
+      if (userData.rememberMe) {
+        await setPersistence(Firebase.auth.Auth.Persistence.LOCAL)
+      } else {
+        await setPersistence(Firebase.auth.Auth.Persistence.SESSION)
+      }
       await signInWithEmailAndPassword(userData.email, userData.password);
     } catch(e) {
       console.error(e);
@@ -75,6 +85,7 @@ function Login() {
             initialValues={{
               email: '',
               password: '',
+              rememberMe: false,
             }}
             onSubmit={handleSubmit}
           />

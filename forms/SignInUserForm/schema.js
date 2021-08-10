@@ -6,4 +6,6 @@ export default Yup.object().shape({
     .required('This field is required'),
   password: Yup.string()
     .required('This field is required'),
+  rememberMe: Yup.bool()
+    .required('This field is required'),
 });

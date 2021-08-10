@@ -7,8 +7,6 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Row,
-  Col,
 } from "reactstrap";
 
 export default function SignInUserForm(props) {
@@ -47,20 +45,21 @@ export default function SignInUserForm(props) {
         <ErrorMessage name="password" />
       </FormGroup>
       <div className="custom-control custom-control-alternative custom-checkbox">
-        <input
-          className="custom-control-input"
-          id=" customCheckLogin"
+        <Field
+          name="rememberMe"
           type="checkbox"
+          className="custom-control-input"
+          id="customCheckLogin"
         />
         <label
           className="custom-control-label"
-          htmlFor=" customCheckLogin"
+          htmlFor="customCheckLogin"
         >
           <span className="text-muted">Remember me</span>
         </label>
       </div>
       <div className="text-center">
-        <Button className="my-4" color="primary" type="submit">
+        <Button className="my-4" color="primary" type="submit" disabled={props.isSubmitting}>
           Sign in
         </Button>
       </div>
