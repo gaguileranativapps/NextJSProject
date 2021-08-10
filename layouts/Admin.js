@@ -36,7 +36,7 @@ function Admin(props) {
     }
   }, [user]);
 
-  return (
+  return user && (
     <>
       <Sidebar
         {...props}

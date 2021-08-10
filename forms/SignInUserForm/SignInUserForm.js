@@ -27,8 +27,8 @@ export default function SignInUserForm(props) {
             type="email"
             as={Input}
           />
-          <ErrorMessage name="email" />
         </InputGroup>
+        <ErrorMessage name="email" />
       </FormGroup>
       <FormGroup>
         <InputGroup className="input-group-alternative">
@@ -43,8 +43,8 @@ export default function SignInUserForm(props) {
             type="password"
             as={Input}
           />
-          <ErrorMessage name="password" />
         </InputGroup>
+        <ErrorMessage name="password" />
       </FormGroup>
       <div className="custom-control custom-control-alternative custom-checkbox">
         <input
