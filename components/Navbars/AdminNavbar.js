@@ -52,7 +52,7 @@ function AdminNavbar({ brandText }) {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={require("assets/img/theme/team-4-800x800.jpg")}
+                      src={`https://ui-avatars.com/api/?name=${user.displayName}&background=random`}
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">

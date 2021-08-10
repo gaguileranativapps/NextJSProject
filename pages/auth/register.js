@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import { Formik } from 'formik';
 import { CreateUserForm, CreateUserFormSchema } from '../../forms/CreateUserForm';
@@ -9,6 +10,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  Row,
 } from "reactstrap";
 
 // layout for this page
@@ -87,6 +89,17 @@ function Register() {
           />
         </CardBody>
       </Card>
+      <Row>
+        <Col className="text-right" xs="12">
+          <Link href="/auth/login">
+            <a
+              className="text-light"
+            >
+              <small>I already have an account</small>
+            </a>
+          </Link>
+        </Col>
+      </Row>
     </Col>
   );
 }

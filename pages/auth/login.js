@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link';
 
 // reactstrap components
 import {
@@ -102,13 +103,13 @@ function Login() {
           </a>
         </Col>
         <Col className="text-right" xs="6">
-          <a
-            className="text-light"
-            href="#pablo"
-            onClick={(e) => e.preventDefault()}
-          >
-            <small>Create new account</small>
-          </a>
+          <Link href="/auth/register">
+            <a
+              className="text-light"
+            >
+              <small>Create new account</small>
+            </a>
+          </Link>
         </Col>
       </Row>
     </Col>
