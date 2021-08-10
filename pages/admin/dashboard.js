@@ -32,6 +32,8 @@ import {
 
 import Header from "components/Headers/Header.js";
 
+import nookies from 'nookies';
+
 const Dashboard = (props) => {
   const [activeNav, setActiveNav] = React.useState(1);
   const [chartExample1Data, setChartExample1Data] = React.useState("data1");
@@ -45,6 +47,8 @@ const Dashboard = (props) => {
     setActiveNav(index);
     setChartExample1Data("data" + index);
   };
+
+  console.log(props.tokenFromSSR);
 
   return (
     <>
@@ -321,5 +325,15 @@ const Dashboard = (props) => {
 };
 
 Dashboard.layout = Admin;
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+
+  return {
+    props: {
+      tokenFromSSR: cookies.token,
+    }
+  };
+}
 
 export default Dashboard;

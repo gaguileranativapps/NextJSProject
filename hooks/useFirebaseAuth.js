@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Firebase from '../firebase';
+import { setCookie } from 'nookies';
 
 export default function userFirebaseAuth() {
   const [user, setUser] = useState(() => {
@@ -9,11 +10,20 @@ export default function userFirebaseAuth() {
 
   const authStateChanged = async (authUser) => {
     setUser(authUser);
+    if (authUser) {
+      const token = await authUser.getIdToken(true);
+      setCookie(null, 'token', token);
+    }
   }
 
-  const updateSession = () => {
+  const updateSession = async () => {
     const user = Firebase.auth().currentUser;
     setUser(user);
+
+    if (user) {
+      const token = await authUser.getIdToken(true);
+      setCookie(null, 'token', token);
+    }
   }
 
   const signInWithEmailAndPassword = (email, password) => 
