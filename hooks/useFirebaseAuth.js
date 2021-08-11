@@ -33,7 +33,7 @@ export default function userFirebaseAuth() {
     Firebase.auth().createUserWithEmailAndPassword(email, password);
   
   const signOut = () => 
-    Firebase.auth().signOut().then(updateSession);
+    Firebase.auth().signOut();
 
   const updateProfile = (profileData) => {
     const user = Firebase.auth().currentUser;

@@ -29,5 +29,11 @@ var routes = [
     icon: "ni ni-bullet-list-67 text-red",
     layout: "/admin",
   },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: "ni ni-chat-round text-purple",
+    layout: "/admin",
+  },
 ];
 export default routes;

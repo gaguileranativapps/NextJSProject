@@ -48,7 +48,8 @@ const Dashboard = (props) => {
     setChartExample1Data("data" + index);
   };
 
-  console.log(props.tokenFromSSR);
+  // This works.
+  // console.log(props.tokenFromSSR);
 
   return (
     <>
