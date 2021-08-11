@@ -7,6 +7,7 @@ export default function userFirebaseAuth() {
     const user = Firebase.auth().currentUser;
     return user;
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const authStateChanged = async (authUser) => {
     setUser(authUser);
@@ -14,6 +15,7 @@ export default function userFirebaseAuth() {
       const token = await authUser.getIdToken(true);
       setCookie(null, 'token', token);
     }
+    setIsLoading(false);
   }
 
   const updateSession = async () => {
@@ -55,5 +57,6 @@ export default function userFirebaseAuth() {
     signOut,
     updateProfile,
     setPersistence,
+    isLoading,
   };
 }

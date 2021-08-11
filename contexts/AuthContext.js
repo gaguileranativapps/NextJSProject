@@ -3,13 +3,14 @@ import useFirebaseAuth from '../hooks/useFirebaseAuth';
 
 const AuthContext = React.createContext({
   user: null,
+  isLoading: true,
 });
 
 export function AuthProvider({ children }) {
-  const { user } = useFirebaseAuth();
+  const { user, isLoading } = useFirebaseAuth();
 
   return (
-    <AuthContext.Provider value={{ user }}>{ children }</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, isLoading }}>{ children }</AuthContext.Provider>
   );
 }
 

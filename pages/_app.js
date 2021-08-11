@@ -16,7 +16,7 @@ import { Hydrate } from 'react-query/hydration';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 Router.events.on("routeChangeStart", (url) => {
-  console.log(`Loading: ${url}`);
+  //console.log(`Loading: ${url}`);
   document.body.classList.add("body-page-transition");
   ReactDOM.render(
     <PageChange path={url} />,

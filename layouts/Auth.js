@@ -1,6 +1,9 @@
 import React from "react";
+import ReactDOM from "react-dom";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
+
+import PageChange from "components/PageChange/PageChange.js";
 
 import useAuth from '../hooks/useAuth';
 
@@ -13,7 +16,7 @@ import { useRouter } from "next/router";
 import routes from "routes.js";
 
 function Auth(props) {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
 
   React.useEffect(() => {
@@ -25,12 +28,25 @@ function Auth(props) {
   }, []);
 
   React.useEffect(() => {
-    if (user) {
+    if (user && !isLoading) {
       router.push('/admin/dashboard');
     }
-  }, [user]);
+  }, [user, isLoading]);
 
-  return (
+  React.useEffect(() => {
+    if (isLoading) {
+      document.body.classList.add("body-page-transition");
+      ReactDOM.render(
+        <PageChange url={router.pathname} />,
+        document.getElementById("page-transition")
+      );
+    } else {
+      ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
+      document.body.classList.remove("body-page-transition");
+    }
+  }, [isLoading]);
+
+  return !user && !isLoading && (
     <>
       <div className="main-content">
         <AuthNavbar />

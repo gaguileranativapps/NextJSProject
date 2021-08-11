@@ -18,7 +18,7 @@ module.exports = withPlugins([[withFonts], [withCSS], [withImages], [withSass]],
       config.resolve.modules.push(path.resolve("./"));
       return config;
     },
-    reactStrictMode: true,
+    reactStrictMode: false,
     webpack5: false,
   }
 );
