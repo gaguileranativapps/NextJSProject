@@ -3,6 +3,8 @@ import React from "react";
 import Admin from "layouts/Admin.js";
 import Header from "components/Headers/Header.js";
 
+import nookies from 'nookies';
+
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 
 import {
@@ -150,5 +152,23 @@ function Chat(props) {
 }
 
 Chat.layout = Admin;
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const firebase_token = cookies.token;
+
+  const response = await fetch(`${process.env.API_URL}/api/twilio/token`, {
+    headers: {
+      'Authorization': `Bearer ${firebase_token}`,
+    },
+  });
+  const data = await response.json();
+
+  return {
+    props: {
+      twilio_token: data.twilio_access_token,
+    },
+  };
+}
 
 export default Chat;
