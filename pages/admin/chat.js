@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Admin from "layouts/Admin.js";
 import Header from "components/Headers/Header.js";
 
 import nookies from 'nookies';
+
+import * as TwilioChat from 'twilio-chat';
 
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 
@@ -39,6 +41,41 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 
 function Chat(props) {
+  const [channels, setChannels] = useState([]);
+  const [selectedChannel, setSelectedChannel] = useState(null);
+  const [messages, setMessages] = useState([]);
+
+  useEffect(async () => {
+    const client = await TwilioChat.Client.create(props.twilio_token);
+
+    const channelsDescriptor = await client.getUserChannelDescriptors();
+    const selectedChannel = channelsDescriptor.items[0] || null;
+
+    client.on('channelJoined', (channel) => {
+      setChannels([channel, ...channels]);
+    });
+
+    setChannels(channelsDescriptor.items);
+    setSelectedChannel(selectedChannel);
+
+    if (selectedChannel) {
+      const messagesDescriptor = await selectedChannel.getMessages();
+      setMessages(messagesDescriptor.items);
+    }
+  }, []);
+
+  useEffect(async () => {
+    if (!selectedChannel) {
+      return;
+    }
+
+    const messagesDescriptor = await selectedChannel.getMessages();
+    setMessages(messagesDescriptor.items);
+    selectedChannel.on('messageAdded', (message) => {
+      setMessages([...messages, message]);
+    });
+  }, [selectedChannel]);
+
   return (
     <>
       <Header />

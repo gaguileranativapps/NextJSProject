@@ -5,6 +5,7 @@ import firebaseAuthentication from '../../../middlewares/firebaseAuthentication'
 
 const AccessToken = Twilio.jwt.AccessToken;
 const ChatGrant = AccessToken.ChatGrant;
+const AdminClient = Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_API_SECRET);
 
 const handler = nc()
   .use(firebaseAuthentication)
